@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mokemon</title>
+    <script src="js/mokemon.js"></script>
 </head>
 <body>
     <h1>Mokemon 💧 🔥 🌱</h1>
@@ -23,13 +24,8 @@
         <input type="radio" name="mascota" id="Tucalpma">
         <label for="Pydos">Pydos</label>
         <input type="radio" name="mascota" id="Pydos">
-        <!--Hipoge -> Water 
-        Capipepo -> Earth
-        Ratigueya -> Fire
-        Langostelvis -> Water and Fire 
-        Tucalpma -> Water and Earth  
-        Pydos -> Earth and Fire -->
-        <button>Choose</button>        
+        
+        <button id="button-pets">Choose</button>        
     </section>
 
     <section id="select attack">
@@ -37,9 +33,9 @@
         <p>Your pet has <span>3</span> lives</p>
         <p>The enemy's pet has <span>3</span> lives</p>
         <p>
-            <button>Fire 🔥</button>
-            <button>Water 💧</button>
-            <button>Earth 🌱</button>
+            <button id="button-fire">Fire 🔥</button>
+            <button id="button-water">Water 💧</button>
+            <button id="button-earth">Earth 🌱</button>
         </p>
     </section>    
 
@@ -48,7 +44,7 @@
     </section>
 
     <section id="reload">
-        <button>Restart</button>
+        <button id="button-restart">Restart</button>
     </section>
 
 </body>
