@@ -30,8 +30,8 @@
 
     <section id="select attack">
         <h2>Choose your attack</h2>
-        <p>Your pet has <span>3</span> lives</p>
-        <p>The enemy's pet has <span>3</span> lives</p>
+        <p>Your <span id="petNamePlayer"></span> pet has <span>3</span> lives</p>
+        <p><span id="petNameEnemy"></span> enemy's pet has <span>3</span> lives</p>
         <p>
             <button id="button-fire">Fire 🔥</button>
             <button id="button-water">Water 💧</button>
@@ -40,7 +40,7 @@
     </section>    
 
     <section id="messages">
-        <p>Your pet attacked with fire, The enumy's pet attacked with Earth -- Won 🎉</p>
+        <p>Your pet attacked with <span id="player-attack"></span>, The enemy's pet attacked with <span id="enemy-attack"></span> -- Won 🎉</p>
     </section>
 
     <section id="reload">
@@ -48,4 +48,4 @@
     </section>
 
 </body>
-</html>
+</html> 

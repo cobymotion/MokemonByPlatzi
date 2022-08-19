@@ -1,11 +1,103 @@
 
+let playerAttack 
+let enemyAttack
+
+function randomNumber (min, max ){
+  return Math.floor(Math.random() * (max - min + 1) + min ) 
+}
+
 function selectPlayerPet(){
-  alert("Choosed")  
+  
+    let inputHipoge = document.getElementById('Hipoge')
+    let inputRatigueya = document.getElementById('Ratigueya')
+    let inputCapipepo = document.getElementById('Capipepo')
+    let inputLangostelvis = document.getElementById('Langostelvis')
+    let inputTucalpma = document.getElementById('Tucalpma')
+    let inputPydos = document.getElementById('Pydos')
+    let petNamePlayer = document.getElementById('petNamePlayer')
+
+    if(inputHipoge.checked){
+      petNamePlayer.innerHTML="Hipoge"
+    } else if(inputRatigueya.checked){
+      petNamePlayer.innerHTML = "Ratigueya"
+    } else if(inputCapipepo.checked){
+      petNamePlayer.innerHTML="Capipepo"
+    } else if(inputLangostelvis.checked){
+      petNamePlayer.innerHTML="Langostelvis"
+    } else if(inputTucalpma.checked){
+      petNamePlayer.innerHTML = "Tucalpma"
+    } else if(inputPydos.checked){
+      petNamePlayer.innerHTML = "Pydos"
+    } else {
+      alert('You must select a pet ')
+    }  
+    selectEnemyPet()
+}
+
+function selectEnemyPet() {
+  let numberPet = randomNumber(1,6)
+  let petNameEnemy = document.getElementById('petNameEnemy')
+  if(numberPet == 1){
+    petNameEnemy.innerHTML="Hipoge"
+  } else if(numberPet == 2){
+    petNameEnemy.innerHTML = "Ratigueya"
+  } else if(numberPet == 3){
+    petNameEnemy.innerHTML="Capipepo"
+  } else if(numberPet == 4){
+    petNameEnemy.innerHTML="Langostelvis"
+  } else if(numberPet == 5){
+    petNameEnemy.innerHTML = "Tucalpma"
+  } else {
+    petNameEnemy.innerHTML = "Pydos"
+  }
+}
+
+function attackFire(){
+  playerAttack = "FIRE"
+  console.log(playerAttack)
+  randomSelectEnemyAttack()
+}
+
+function attackWater(){
+  playerAttack = "WATER"
+  console.log(playerAttack)
+  randomSelectEnemyAttack()
+}
+
+function attackEarth(){
+  playerAttack = "EARTH"
+  console.log(playerAttack)
+  randomSelectEnemyAttack()
+}
+
+function randomSelectEnemyAttack() {
+  let attackNumber = randomNumber(1,3)
+  if(attackNumber == 1){
+    enemyAttack = "FIRE"
+  } else if(attackNumber==2){
+    enemyAttack = "WATER"
+  } else {
+    enemyAttack = "EARTH"
+  }
+  updateMessages()
+}
+
+function updateMessages(){
+  let spanPlayerAtack = document.getElementById('player-attack')
+  let spanEnemyAtack = document.getElementById('enemy-attack')
+  spanPlayerAtack.innerHTML = playerAttack
+  spanEnemyAtack.innerHTML = enemyAttack
 }
 
 function startGame() {
     let playersPetButton = document.getElementById('button-pets')
     playersPetButton.addEventListener('click', selectPlayerPet)
+    let fireAttackButton = document.getElementById('button-fire')
+    fireAttackButton.addEventListener('click', attackFire)
+    let waterAttackButton = document.getElementById('button-water')
+    waterAttackButton.addEventListener('click', attackWater)
+    let earthAttackButton = document.getElementById('button-earth')
+    earthAttackButton.addEventListener('click', attackEarth)
 }
 
 window.addEventListener('load', startGame)
