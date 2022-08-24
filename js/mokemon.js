@@ -1,6 +1,8 @@
 
 let playerAttack 
 let enemyAttack
+let playerLifes = 3
+let enemyLifes = 3
 
 function randomNumber (min, max ){
   return Math.floor(Math.random() * (max - min + 1) + min ) 
@@ -83,10 +85,34 @@ function randomSelectEnemyAttack() {
 }
 
 function updateMessages(){
-  let spanPlayerAtack = document.getElementById('player-attack')
-  let spanEnemyAtack = document.getElementById('enemy-attack')
-  spanPlayerAtack.innerHTML = playerAttack
-  spanEnemyAtack.innerHTML = enemyAttack
+  let result = combat()
+  let messageSection = document.getElementById('messages')  
+  
+  let phrase = document.createElement('p'); 
+  phrase.innerHTML = 'Your pet attacked with '+ playerAttack +', The enemy´s pet attacked with ' + enemyAttack + ' -- ' + result
+  messageSection.appendChild(phrase)
+
+}
+
+function combat() {
+
+  let spanPlayerLifes = document.getElementById('playerLifes')
+  let spanEnemyLifes = document.getElementById('enemyLifes')  
+
+  if(playerAttack == enemyAttack){
+    return 'Draw 😬'; 
+  } else if((playerAttack=='FIRE' && enemyAttack=='EARTH')
+            || (playerAttack=='EARTH' && enemyAttack=='WATER')
+            || (playerAttack=='WATER' && enemyAttack=='FIRE')){
+              enemyLifes--; 
+              spanEnemyLifes.innerHTML = enemyLifes
+              return 'Won 🎉'; 
+            }
+            else {
+              playerLifes--;
+              spanPlayerLifes.innerHTML = playerLifes
+              return 'LOST 😵';
+            }
 }
 
 function startGame() {
