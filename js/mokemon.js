@@ -10,6 +10,12 @@ function randomNumber (min, max ){
 
 function selectPlayerPet(){
   
+    let sectionAttack = document.getElementById('select-attack')
+    sectionAttack.style.display = 'block' 
+
+    let sectionPet = document.getElementById('select-pet')
+    sectionPet.style.display = 'none'
+
     let inputHipoge = document.getElementById('Hipoge')
     let inputRatigueya = document.getElementById('Ratigueya')
     let inputCapipepo = document.getElementById('Capipepo')
@@ -91,7 +97,7 @@ function updateMessages(){
   let phrase = document.createElement('p'); 
   phrase.innerHTML = 'Your pet attacked with '+ playerAttack +', The enemy´s pet attacked with ' + enemyAttack + ' -- ' + result
   messageSection.appendChild(phrase)
-
+  checkLifes()
 }
 
 function combat() {
@@ -105,17 +111,57 @@ function combat() {
             || (playerAttack=='EARTH' && enemyAttack=='WATER')
             || (playerAttack=='WATER' && enemyAttack=='FIRE')){
               enemyLifes--; 
-              spanEnemyLifes.innerHTML = enemyLifes
+              spanEnemyLifes.innerHTML = enemyLifes              
               return 'Won 🎉'; 
             }
             else {
               playerLifes--;
-              spanPlayerLifes.innerHTML = playerLifes
+              spanPlayerLifes.innerHTML = playerLifes 
               return 'LOST 😵';
             }
 }
 
+function checkLifes(){
+  if(enemyLifes==0){
+    messageFinal("Congratulation!! You wont")    
+  } else if(playerLifes == 0)
+  {
+    messageFinal("Auch!! You lost")
+  }
+}
+
+function disableButton() {
+  let fireAttackButton = document.getElementById('button-fire')
+  fireAttackButton.disabled=true
+  let waterAttackButton = document.getElementById('button-water')
+  waterAttackButton.disabled=true
+  let earthAttackButton = document.getElementById('button-earth')
+  earthAttackButton.disabled=true
+}
+
+function messageFinal(resultEnd){
+  let messageSection = document.getElementById('messages')  
+  
+  let phrase = document.createElement('p'); 
+  phrase.innerHTML = resultEnd
+  messageSection.appendChild(phrase)
+  disableButton(); 
+  let sectionRestart = document.getElementById('reload')
+  sectionRestart.style.display = 'block' 
+}
+
+function resetGame(){
+  location.reload()
+}
+
 function startGame() {
+
+    let sectionAttack = document.getElementById('select-attack')
+    sectionAttack.style.display = 'none' 
+
+    let sectionRestart = document.getElementById('reload')
+    sectionRestart.style.display = 'none' 
+
     let playersPetButton = document.getElementById('button-pets')
     playersPetButton.addEventListener('click', selectPlayerPet)
     let fireAttackButton = document.getElementById('button-fire')
@@ -124,6 +170,9 @@ function startGame() {
     waterAttackButton.addEventListener('click', attackWater)
     let earthAttackButton = document.getElementById('button-earth')
     earthAttackButton.addEventListener('click', attackEarth)
+    let resetButton = document.getElementById('button-restart')
+    resetButton.addEventListener('click', resetGame)    
+
 }
 
 window.addEventListener('load', startGame)
