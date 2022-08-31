@@ -1,8 +1,7 @@
-.title {
-    color: brown;
-    width: 310px;
-    height: 50px;
-    background-color: blanchedalmond;
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+body{
+    font-family: 'Fredoka One', cursive;
 }
 
 #select-pet {
@@ -12,8 +11,23 @@
     align-items: center;
 }
 
+.title {
+    color: brown;    
+    font-size: 32px;
+}
+
+.subtitle {
+    font-size: 20px;
+}
+
+.cards{
+    display: flex;
+    gap: 10px;
+}
+
 .card-mokepon{
-    width: 100px;
+    display: flex;
+    width: 190px;
     height: 100px;
     background: aquamarine;
     padding: 10px;
@@ -21,8 +35,25 @@
     margin: 10px;
     border: 1px solid green;
     border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-mokepon img {
+    width: 80px;
+    height: 80px;
 }
 
 input{
     display: none;
+}
+
+#button-pets {
+    width: 180px;
+    height: 40px;
+    border-radius: 20px;
+    background: transparent;
+    border: 2px solid green;
+    margin: 30px 20px 10px 5px;
 }
