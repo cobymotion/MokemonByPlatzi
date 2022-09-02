@@ -11,7 +11,7 @@ function randomNumber (min, max ){
 function selectPlayerPet(){
   
     let sectionAttack = document.getElementById('select-attack')
-    sectionAttack.style.display = 'block' 
+    sectionAttack.style.display = 'flex' 
 
     let sectionPet = document.getElementById('select-pet')
     sectionPet.style.display = 'none'
@@ -92,11 +92,22 @@ function randomSelectEnemyAttack() {
 
 function updateMessages(){
   let result = combat()
-  let messageSection = document.getElementById('messages')  
+
+  let msgResult = document.getElementById('msgResult')
+  let msgPlayerAttack = document.getElementById('msgPlayerAttack')
+  let msgEnemyAttack = document.getElementById('msgEnemyAttack')  
   
-  let phrase = document.createElement('p'); 
-  phrase.innerHTML = 'Your pet attacked with '+ playerAttack +', The enemy´s pet attacked with ' + enemyAttack + ' -- ' + result
-  messageSection.appendChild(phrase)
+  
+  let phrasePlayerAttack = document.createElement('p'); 
+  let phraseEnemyAttack = document.createElement('p'); 
+
+  msgResult.innerHTML = result
+  phrasePlayerAttack.innerHTML = playerAttack
+  phraseEnemyAttack.innerHTML = enemyAttack
+  
+
+  msgPlayerAttack.appendChild(phrasePlayerAttack)
+  msgEnemyAttack.appendChild(phraseEnemyAttack)
   checkLifes()
 }
 
@@ -140,11 +151,9 @@ function disableButton() {
 }
 
 function messageFinal(resultEnd){
-  let messageSection = document.getElementById('messages')  
-  
-  let phrase = document.createElement('p'); 
-  phrase.innerHTML = resultEnd
-  messageSection.appendChild(phrase)
+  let messageSection = document.getElementById('msgResult')  
+
+  messageSection.innerHTML = resultEnd  
   disableButton(); 
   let sectionRestart = document.getElementById('reload')
   sectionRestart.style.display = 'block' 

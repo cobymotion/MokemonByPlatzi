@@ -10,7 +10,7 @@
 </head>
 <body>    
     <section id="select-pet">
-        <h1 class="title">Mokemon</h1>
+        <h1 class="title">CobyMon</h1>
 
         <h2 class="subtitle">Choose your pet</h2>        
         <div class="cards">
@@ -29,7 +29,7 @@
                 <img src="/assets/poke3.png" alt="Hipoge"/>
             </label>
             <input type="radio" name="mascota" id="Ratigueya">
-            <label for="Langostelvis" class="card-mokepon">
+            <!-- <label for="Langostelvis" class="card-mokepon">
                 <p>Langostelvis</p>
                 <img src="/assets/poke4.png" alt="Hipoge"/>
             </label>
@@ -43,30 +43,41 @@
                 <p>Pydos</p>
                 <img src="/assets/poke6.png" alt="Hipoge"/>
             </label>
-            <input type="radio" name="mascota" id="Pydos">
+            <input type="radio" name="mascota" id="Pydos"> -->
         </div>
         <button id="button-pets">Choose</button>        
     </section>
 
     <section id="select-attack">
-        <h1 class="title">Mokemon 💧 🔥 🌱</h1>
-        <h2>Choose your attack</h2>
-        <p>Your <span id="petNamePlayer"></span> pet has <span id="playerLifes">3</span> lives</p>
-        <p><span id="petNameEnemy"></span> enemy's pet has <span id="enemyLifes">3</span> lives</p>
-        <p>
-            <button id="button-fire">Fire 🔥</button>
-            <button id="button-water">Water 💧</button>
-            <button id="button-earth">Earth 🌱</button>
-        </p>
+        <h1 class="title">CobyMon</h1>
+        <h2 class="subtitle">Choose your attack</h2>
+
+        <div>
+            <button id="button-fire" class="btn-attack">Fire 🔥</button>
+            <button id="button-water" class="btn-attack">Water 💧</button>
+            <button id="button-earth" class="btn-attack">Earth 🌱</button>
+        </div>
+
+        <div>            
+
+            <div id="messages">
+                <p id="msgResult">Let's go</p>
+                <section id="reload">
+                    <button id="button-restart">Restart</button>
+                </section>
+            </div>            
+            
+        </div>
+        <div>
+            <div id="msgPlayerAttack"></div>
+            <div id="msgEnemyAttack"></div>
+            <p>Your <span id="petNamePlayer"></span> pet has <span id="playerLifes">3</span> lives</p>
+            <p><span id="petNameEnemy"></span> enemy's pet has <span id="enemyLifes">3</span> lives</p>        
+        </div>
+        
     </section>    
 
-    <section id="messages">
-        <p></p>
-    </section>
-
-    <section id="reload">
-        <button id="button-restart">Restart</button>
-    </section>
+    
 
 </body>
 </html> 

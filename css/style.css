@@ -57,3 +57,38 @@ input{
     border: 2px solid green;
     margin: 30px 20px 10px 5px;
 }
+
+#select-attack {    
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn-attack{
+    width: 100px;
+    padding: 10px;
+    border-radius: 20px;
+    background: transparent;
+    border: 2px solid green;
+    margin: 30px 20px 10px 5px;
+    
+}
+
+#messages {
+    width: 280px;
+    background-color: aqua;
+    padding: 20px;
+    border-radius: 20px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#button-restart{
+    width: 100px;
+    padding: 10px;
+    border-radius: 20px;
+    background: transparent;
+    border: 2px solid rgb(23, 73, 180);
+    margin: 10px 20px 10px 5px;
+}
