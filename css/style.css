@@ -92,3 +92,8 @@ input{
     border: 2px solid rgb(23, 73, 180);
     margin: 10px 20px 10px 5px;
 }
+
+.attacks {
+    display: grid;
+    grid-template-columns: 150px 150px;
+}
