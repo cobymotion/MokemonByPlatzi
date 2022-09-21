@@ -134,7 +134,7 @@ function combat() {
 
 function checkLifes(){
   if(enemyLifes==0){
-    messageFinal("Congratulation!! You wont")    
+    messageFinal("Congratulation!! You won")    
   } else if(playerLifes == 0)
   {
     messageFinal("Auch!! You lost")

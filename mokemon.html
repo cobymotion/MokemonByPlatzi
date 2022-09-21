@@ -13,22 +13,22 @@
         <h1 class="title">CobyMon</h1>
 
         <h2 class="subtitle">Choose your pet</h2>        
-        <div class="cards">
+        <div class="cards"> 
+            <input type="radio" name="mascota" id="Hipoge">
             <label for="Hipoge" class="card-mokepon">
                 <p>Hipoge</p>
                 <img src="/assets/poke1.png" alt="Hipoge"/>
             </label>
-            <input type="radio" name="mascota" id="Hipoge">
+            <input type="radio" name="mascota" id="Capipepo">            
             <label for="Capipepo" class="card-mokepon">
                 <p>Capipepo</p>
                 <img src="/assets/poke2.png" alt="Hipoge"/>
-            </label>
-            <input type="radio" name="mascota" id="Capipepo">
+            </label>            
+            <input type="radio" name="mascota" id="Ratigueya">
             <label for="Ratigueya" class="card-mokepon">
                 <p>Ratigueya</p>
                 <img src="/assets/poke3.png" alt="Hipoge"/>
-            </label>
-            <input type="radio" name="mascota" id="Ratigueya">
+            </label>            
             <!-- <label for="Langostelvis" class="card-mokepon">
                 <p>Langostelvis</p>
                 <img src="/assets/poke4.png" alt="Hipoge"/>
@@ -52,7 +52,7 @@
         <h1 class="title">CobyMon</h1>
         <h2 class="subtitle">Choose your attack</h2>
 
-        <div>
+        <div class="attacks-cards">
             <button id="button-fire" class="btn-attack">Fire 🔥</button>
             <button id="button-water" class="btn-attack">Water 💧</button>
             <button id="button-earth" class="btn-attack">Earth 🌱</button>
@@ -69,12 +69,12 @@
             
         </div>
         <div class="attacks">
-            <div>
+            <div class="attacks-player">
                 <p id="playerLifes">3</p>
                 <p id="petNamePlayer"></p>                
                 <div id="msgPlayerAttack"></div>                
             </div>            
-            <div>
+            <div class="attacks-enemy">
                 <p id="enemyLifes">3</p>
                 <p id="petNameEnemy"></p>                
                 <div id="msgEnemyAttack"></div>                

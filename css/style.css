@@ -20,7 +20,7 @@ body{
     font-size: 20px;
 }
 
-.cards{
+.cards, .attacks-cards{
     display: flex;
     gap: 10px;
 }
@@ -47,6 +47,11 @@ body{
 
 input{
     display: none;
+}
+
+input:checked + label {
+    background-color: rgb(17, 64, 122);
+    color: white;
 }
 
 #button-pets {
@@ -96,4 +101,16 @@ input{
 .attacks {
     display: grid;
     grid-template-columns: 150px 150px;
+}
+
+.attacks-player, .attacks-enemy{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} 
+
+@media(max-width:360px){
+    .cards, .attacks-cards {
+        flex-direction: column;
+    }
 }
