@@ -1,29 +1,53 @@
+const sectionAttack = document.getElementById('select-attack')
+const sectionRestart = document.getElementById('reload')
+const playersPetButton = document.getElementById('button-pets')
+const fireAttackButton = document.getElementById('button-fire')
+const waterAttackButton = document.getElementById('button-water')
+const earthAttackButton = document.getElementById('button-earth')
+const resetButton = document.getElementById('button-restart')
+
+const sectionPet = document.getElementById('select-pet')
+const inputHipoge = document.getElementById('Hipoge')
+const inputRatigueya = document.getElementById('Ratigueya')
+const inputCapipepo = document.getElementById('Capipepo')
+const inputLangostelvis = document.getElementById('Langostelvis')
+const inputTucalpma = document.getElementById('Tucalpma')
+const inputPydos = document.getElementById('Pydos')
+const petNamePlayer = document.getElementById('petNamePlayer')
+
+const petNameEnemy = document.getElementById('petNameEnemy')
+
+const msgResult = document.getElementById('msgResult')
+const msgPlayerAttack = document.getElementById('msgPlayerAttack')
+const msgEnemyAttack = document.getElementById('msgEnemyAttack')
+
+const spanPlayerLifes = document.getElementById('playerLifes')
+const spanEnemyLifes = document.getElementById('enemyLifes')  
+
+const messageSection = document.getElementById('msgResult')  
 
 let playerAttack 
 let enemyAttack
 let playerLifes = 3
 let enemyLifes = 3
 
+function startGame() {    
+  sectionAttack.style.display = 'none' 
+  sectionRestart.style.display = 'none' 
+  playersPetButton.addEventListener('click', selectPlayerPet)
+  fireAttackButton.addEventListener('click', attackFire)
+  waterAttackButton.addEventListener('click', attackWater)
+  earthAttackButton.addEventListener('click', attackEarth)
+  resetButton.addEventListener('click', resetGame)    
+}
+
 function randomNumber (min, max ){
   return Math.floor(Math.random() * (max - min + 1) + min ) 
 }
 
-function selectPlayerPet(){
-  
-    let sectionAttack = document.getElementById('select-attack')
-    sectionAttack.style.display = 'flex' 
-
-    let sectionPet = document.getElementById('select-pet')
+function selectPlayerPet(){    
+    sectionAttack.style.display = 'flex'     
     sectionPet.style.display = 'none'
-
-    let inputHipoge = document.getElementById('Hipoge')
-    let inputRatigueya = document.getElementById('Ratigueya')
-    let inputCapipepo = document.getElementById('Capipepo')
-    let inputLangostelvis = document.getElementById('Langostelvis')
-    let inputTucalpma = document.getElementById('Tucalpma')
-    let inputPydos = document.getElementById('Pydos')
-    let petNamePlayer = document.getElementById('petNamePlayer')
-
     if(inputHipoge.checked){
       petNamePlayer.innerHTML="Hipoge"
     } else if(inputRatigueya.checked){
@@ -43,8 +67,7 @@ function selectPlayerPet(){
 }
 
 function selectEnemyPet() {
-  let numberPet = randomNumber(1,6)
-  let petNameEnemy = document.getElementById('petNameEnemy')
+  const numberPet = randomNumber(1,6)  
   if(numberPet == 1){
     petNameEnemy.innerHTML="Hipoge"
   } else if(numberPet == 2){
@@ -79,7 +102,7 @@ function attackEarth(){
 }
 
 function randomSelectEnemyAttack() {
-  let attackNumber = randomNumber(1,3)
+  const attackNumber = randomNumber(1,3)
   if(attackNumber == 1){
     enemyAttack = "FIRE"
   } else if(attackNumber==2){
@@ -91,30 +114,21 @@ function randomSelectEnemyAttack() {
 }
 
 function updateMessages(){
-  let result = combat()
+  const result = combat()
 
-  let msgResult = document.getElementById('msgResult')
-  let msgPlayerAttack = document.getElementById('msgPlayerAttack')
-  let msgEnemyAttack = document.getElementById('msgEnemyAttack')  
-  
-  
-  let phrasePlayerAttack = document.createElement('p'); 
-  let phraseEnemyAttack = document.createElement('p'); 
+  const phrasePlayerAttack = document.createElement('p'); 
+  const phraseEnemyAttack = document.createElement('p'); 
 
   msgResult.innerHTML = result
   phrasePlayerAttack.innerHTML = playerAttack
   phraseEnemyAttack.innerHTML = enemyAttack
   
-
   msgPlayerAttack.appendChild(phrasePlayerAttack)
   msgEnemyAttack.appendChild(phraseEnemyAttack)
   checkLifes()
 }
 
 function combat() {
-
-  let spanPlayerLifes = document.getElementById('playerLifes')
-  let spanEnemyLifes = document.getElementById('enemyLifes')  
 
   if(playerAttack == enemyAttack){
     return 'Draw 😬'; 
@@ -141,21 +155,15 @@ function checkLifes(){
   }
 }
 
-function disableButton() {
-  let fireAttackButton = document.getElementById('button-fire')
-  fireAttackButton.disabled=true
-  let waterAttackButton = document.getElementById('button-water')
-  waterAttackButton.disabled=true
-  let earthAttackButton = document.getElementById('button-earth')
+function disableButton() {  
+  fireAttackButton.disabled=true  
+  waterAttackButton.disabled=true  
   earthAttackButton.disabled=true
 }
 
 function messageFinal(resultEnd){
-  let messageSection = document.getElementById('msgResult')  
-
   messageSection.innerHTML = resultEnd  
-  disableButton(); 
-  let sectionRestart = document.getElementById('reload')
+  disableButton();   
   sectionRestart.style.display = 'block' 
 }
 
@@ -163,25 +171,6 @@ function resetGame(){
   location.reload()
 }
 
-function startGame() {
 
-    let sectionAttack = document.getElementById('select-attack')
-    sectionAttack.style.display = 'none' 
-
-    let sectionRestart = document.getElementById('reload')
-    sectionRestart.style.display = 'none' 
-
-    let playersPetButton = document.getElementById('button-pets')
-    playersPetButton.addEventListener('click', selectPlayerPet)
-    let fireAttackButton = document.getElementById('button-fire')
-    fireAttackButton.addEventListener('click', attackFire)
-    let waterAttackButton = document.getElementById('button-water')
-    waterAttackButton.addEventListener('click', attackWater)
-    let earthAttackButton = document.getElementById('button-earth')
-    earthAttackButton.addEventListener('click', attackEarth)
-    let resetButton = document.getElementById('button-restart')
-    resetButton.addEventListener('click', resetGame)    
-
-}
 
 window.addEventListener('load', startGame)
