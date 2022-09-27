@@ -26,10 +26,32 @@ const spanEnemyLifes = document.getElementById('enemyLifes')
 
 const messageSection = document.getElementById('msgResult')  
 
+const cobymons = []
+
 let playerAttack 
 let enemyAttack
 let playerLifes = 3
 let enemyLifes = 3
+
+class Cobymon {
+
+  constructor(name, photo, life){
+    this.name = name
+    this.photo = photo
+    this.life = life
+    this.attacks = []
+  }
+
+}
+
+const hipoge = new Cobymon('Hipoge','/assets/poke1.png',5)
+const capipepo = new Cobymon('Capipepo','/assets/poke2.png',5)
+const ratigueya = new Cobymon('Ratigueya','/assets/poke3.png',5)
+const langostelvis = new Cobymon('Langostelvis','/assets/poke4.png',5)
+const tucalpma = new Cobymon('Tucalpma','/assets/poke5.png',5)
+const pydos = new Cobymon('Pydos','/assets/poke6.png',5)
+
+cobymons.push(hipoge, capipepo,ratigueya,langostelvis,tucalpma,pydos)
 
 function startGame() {    
   sectionAttack.style.display = 'none' 
@@ -40,6 +62,8 @@ function startGame() {
   earthAttackButton.addEventListener('click', attackEarth)
   resetButton.addEventListener('click', resetGame)    
 }
+
+//TODO: Add Attacks for each cobymon
 
 function randomNumber (min, max ){
   return Math.floor(Math.random() * (max - min + 1) + min ) 
