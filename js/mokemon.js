@@ -25,9 +25,10 @@ const spanPlayerLifes = document.getElementById('playerLifes')
 const spanEnemyLifes = document.getElementById('enemyLifes')  
 
 const messageSection = document.getElementById('msgResult')  
+const cardsContainer = document.getElementById('cards-container')  
 
 const cobymons = []
-
+let cobymonsOptions
 let playerAttack 
 let enemyAttack
 let playerLifes = 3
@@ -51,11 +52,71 @@ const langostelvis = new Cobymon('Langostelvis','/assets/poke4.png',5)
 const tucalpma = new Cobymon('Tucalpma','/assets/poke5.png',5)
 const pydos = new Cobymon('Pydos','/assets/poke6.png',5)
 
+hipoge.attacks.push(
+  {nombre:'🌱', id:'button-earth'},
+  {nombre:'🌱', id:'button-earth'},
+  {nombre:'🌱', id:'button-earth'},
+  {nombre:'💧', id:'button-water'},
+  {nombre:'🔥', id:'button-fire'}
+)
+
+capipepo.attacks.push(
+  {nombre:'🌱', id:'button-earth'},
+  {nombre:'🌱', id:'button-earth'},
+  {nombre:'🌱', id:'button-earth'},
+  {nombre:'💧', id:'button-water'},
+  {nombre:'🔥', id:'button-fire'}
+)
+
+ratigueya.attacks.push(
+  {nombre:'🌱', id:'button-earth'},
+  {nombre:'🌱', id:'button-earth'},
+  {nombre:'🌱', id:'button-earth'},
+  {nombre:'💧', id:'button-water'},
+  {nombre:'🔥', id:'button-fire'}
+)
+
+langostelvis.attacks.push(
+  {nombre:'🌱', id:'button-earth'},
+  {nombre:'🌱', id:'button-earth'},
+  {nombre:'🌱', id:'button-earth'},
+  {nombre:'💧', id:'button-water'},
+  {nombre:'🔥', id:'button-fire'}
+)
+
+tucalpma.attacks.push(
+  {nombre:'🌱', id:'button-earth'},
+  {nombre:'🌱', id:'button-earth'},
+  {nombre:'🌱', id:'button-earth'},
+  {nombre:'💧', id:'button-water'},
+  {nombre:'🔥', id:'button-fire'}
+)
+
+pydos.attacks.push(
+  {nombre:'🌱', id:'button-earth'},
+  {nombre:'🌱', id:'button-earth'},
+  {nombre:'🌱', id:'button-earth'},
+  {nombre:'💧', id:'button-water'},
+  {nombre:'🔥', id:'button-fire'}
+)
+
 cobymons.push(hipoge, capipepo,ratigueya,langostelvis,tucalpma,pydos)
 
 function startGame() {    
   sectionAttack.style.display = 'none' 
   sectionRestart.style.display = 'none' 
+
+  cobymons.forEach((cobymon) => {
+    cobymonsOptions = `
+        <input type="radio" name="mascota" id="${cobymon.name}">
+        <label for="${cobymon.name}" class="card-mokepon">
+            <p>${cobymon.name}</p>
+            <img src="${cobymon.photo}" alt="${cobymon.name}"/>
+        </label>
+    `;
+    cardsContainer.innerHTML += cobymonsOptions
+  })
+
   playersPetButton.addEventListener('click', selectPlayerPet)
   fireAttackButton.addEventListener('click', attackFire)
   waterAttackButton.addEventListener('click', attackWater)
