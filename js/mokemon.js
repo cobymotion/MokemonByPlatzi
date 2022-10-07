@@ -7,12 +7,7 @@ const earthAttackButton = document.getElementById('button-earth')
 const resetButton = document.getElementById('button-restart')
 
 const sectionPet = document.getElementById('select-pet')
-const inputHipoge = document.getElementById('Hipoge')
-const inputRatigueya = document.getElementById('Ratigueya')
-const inputCapipepo = document.getElementById('Capipepo')
-const inputLangostelvis = document.getElementById('Langostelvis')
-const inputTucalpma = document.getElementById('Tucalpma')
-const inputPydos = document.getElementById('Pydos')
+
 const petNamePlayer = document.getElementById('petNamePlayer')
 
 const petNameEnemy = document.getElementById('petNameEnemy')
@@ -33,6 +28,14 @@ let playerAttack
 let enemyAttack
 let playerLifes = 3
 let enemyLifes = 3
+
+let inputHipoge 
+let inputRatigueya 
+let inputCapipepo 
+let inputLangostelvis 
+let inputTucalpma
+let inputPydos 
+
 
 class Cobymon {
 
@@ -115,7 +118,15 @@ function startGame() {
         </label>
     `;
     cardsContainer.innerHTML += cobymonsOptions
+
   })
+
+  inputHipoge = document.getElementById('Hipoge')
+  inputRatigueya = document.getElementById('Ratigueya')
+  inputCapipepo = document.getElementById('Capipepo')
+  inputLangostelvis = document.getElementById('Langostelvis')
+  inputTucalpma = document.getElementById('Tucalpma')
+  inputPydos = document.getElementById('Pydos')  
 
   playersPetButton.addEventListener('click', selectPlayerPet)
   fireAttackButton.addEventListener('click', attackFire)
@@ -133,18 +144,19 @@ function randomNumber (min, max ){
 function selectPlayerPet(){    
     sectionAttack.style.display = 'flex'     
     sectionPet.style.display = 'none'
+
     if(inputHipoge.checked){
-      petNamePlayer.innerHTML="Hipoge"
+      petNamePlayer.innerHTML=inputHipoge.id
     } else if(inputRatigueya.checked){
-      petNamePlayer.innerHTML = "Ratigueya"
+      petNamePlayer.innerHTML = inputRatigueya.id
     } else if(inputCapipepo.checked){
-      petNamePlayer.innerHTML="Capipepo"
+      petNamePlayer.innerHTML=inputCapipepo.id
     } else if(inputLangostelvis.checked){
-      petNamePlayer.innerHTML="Langostelvis"
+      petNamePlayer.innerHTML=inputLangostelvis.id
     } else if(inputTucalpma.checked){
-      petNamePlayer.innerHTML = "Tucalpma"
+      petNamePlayer.innerHTML = inputTucalpma.id
     } else if(inputPydos.checked){
-      petNamePlayer.innerHTML = "Pydos"
+      petNamePlayer.innerHTML = inputPydos.id
     } else {
       alert('You must select a pet ')
     }  
@@ -152,20 +164,8 @@ function selectPlayerPet(){
 }
 
 function selectEnemyPet() {
-  const numberPet = randomNumber(1,6)  
-  if(numberPet == 1){
-    petNameEnemy.innerHTML="Hipoge"
-  } else if(numberPet == 2){
-    petNameEnemy.innerHTML = "Ratigueya"
-  } else if(numberPet == 3){
-    petNameEnemy.innerHTML="Capipepo"
-  } else if(numberPet == 4){
-    petNameEnemy.innerHTML="Langostelvis"
-  } else if(numberPet == 5){
-    petNameEnemy.innerHTML = "Tucalpma"
-  } else {
-    petNameEnemy.innerHTML = "Pydos"
-  }
+  const numberPet = randomNumber(0,cobymons.length -1)  
+  petNameEnemy.innerHTML = cobymons[numberPet].name;
 }
 
 function attackFire(){
