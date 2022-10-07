@@ -1,26 +1,18 @@
 const sectionAttack = document.getElementById('select-attack')
 const sectionRestart = document.getElementById('reload')
 const playersPetButton = document.getElementById('button-pets')
-const fireAttackButton = document.getElementById('button-fire')
-const waterAttackButton = document.getElementById('button-water')
-const earthAttackButton = document.getElementById('button-earth')
 const resetButton = document.getElementById('button-restart')
-
 const sectionPet = document.getElementById('select-pet')
-
 const petNamePlayer = document.getElementById('petNamePlayer')
-
 const petNameEnemy = document.getElementById('petNameEnemy')
-
 const msgResult = document.getElementById('msgResult')
 const msgPlayerAttack = document.getElementById('msgPlayerAttack')
 const msgEnemyAttack = document.getElementById('msgEnemyAttack')
-
 const spanPlayerLifes = document.getElementById('playerLifes')
 const spanEnemyLifes = document.getElementById('enemyLifes')  
-
 const messageSection = document.getElementById('msgResult')  
 const cardsContainer = document.getElementById('cards-container')  
+const attacksContainer = document.getElementById('div-attacks');
 
 const cobymons = []
 let cobymonsOptions
@@ -28,6 +20,8 @@ let playerAttack
 let enemyAttack
 let playerLifes = 3
 let enemyLifes = 3
+let petPlayer
+let attacksHtml
 
 let inputHipoge 
 let inputRatigueya 
@@ -35,7 +29,9 @@ let inputCapipepo
 let inputLangostelvis 
 let inputTucalpma
 let inputPydos 
-
+let fireAttackButton 
+let waterAttackButton
+let earthAttackButton
 
 class Cobymon {
 
@@ -129,9 +125,6 @@ function startGame() {
   inputPydos = document.getElementById('Pydos')  
 
   playersPetButton.addEventListener('click', selectPlayerPet)
-  fireAttackButton.addEventListener('click', attackFire)
-  waterAttackButton.addEventListener('click', attackWater)
-  earthAttackButton.addEventListener('click', attackEarth)
   resetButton.addEventListener('click', resetGame)    
 }
 
@@ -147,20 +140,52 @@ function selectPlayerPet(){
 
     if(inputHipoge.checked){
       petNamePlayer.innerHTML=inputHipoge.id
+      petPlayer = inputHipoge.id
     } else if(inputRatigueya.checked){
       petNamePlayer.innerHTML = inputRatigueya.id
+      petPlayer = inputRatigueya.id
     } else if(inputCapipepo.checked){
       petNamePlayer.innerHTML=inputCapipepo.id
+      petPlayer = inputCapipepo.id
     } else if(inputLangostelvis.checked){
       petNamePlayer.innerHTML=inputLangostelvis.id
+      petPlayer = inputLangostelvis.id
     } else if(inputTucalpma.checked){
       petNamePlayer.innerHTML = inputTucalpma.id
+      petPlayer = inputTucalpma.id
     } else if(inputPydos.checked){
       petNamePlayer.innerHTML = inputPydos.id
+      petPlayer = inputPydos.id
     } else {
       alert('You must select a pet ')
     }  
+    extractAttacks(petPlayer); 
     selectEnemyPet()
+}
+
+function extractAttacks(petPlayer){
+  let attacks; 
+  for(let i=0;i< cobymons.length;i++){
+    if(petPlayer === cobymons[i].name){
+      attacks = cobymons[i].attacks;
+    }
+  }
+  showAttacks(attacks);
+}
+
+function showAttacks(attacks){
+  attacksHtml = ''
+  attacks.forEach((attack)=>{
+    attacksHtml += `
+      <button id="${attack.id}" class="btn-attack">${attack.nombre}</button>`;            
+  })
+  attacksContainer.innerHTML = attacksHtml;
+  fireAttackButton = document.getElementById('button-fire')
+  waterAttackButton = document.getElementById('button-water')
+  earthAttackButton = document.getElementById('button-earth')
+  fireAttackButton.addEventListener('click', attackFire)
+  waterAttackButton.addEventListener('click', attackWater)
+  earthAttackButton.addEventListener('click', attackEarth)
 }
 
 function selectEnemyPet() {
