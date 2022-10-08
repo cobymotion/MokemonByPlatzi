@@ -18,6 +18,7 @@ const cobymons = []
 let buttons = [] 
 let cobymonsOptions
 let playerAttack 
+let playerAttacks = []
 let enemyAttack
 let playerLifes = 3
 let enemyLifes = 3
@@ -30,9 +31,7 @@ let inputCapipepo
 let inputLangostelvis 
 let inputTucalpma
 let inputPydos 
-let fireAttackButton 
-let waterAttackButton
-let earthAttackButton
+
 
 class Cobymon {
 
@@ -181,10 +180,7 @@ function showAttacks(attacks){
       <button id="${attack.id}" class="btn-attack btn-attack-code">${attack.nombre}</button>`;            
   })
   attacksContainer.innerHTML = attacksHtml;
-  fireAttackButton = document.getElementById('button-fire')
-  waterAttackButton = document.getElementById('button-water')
-  earthAttackButton = document.getElementById('button-earth')
-
+  
   buttons = document.querySelectorAll('.btn-attack-code')
   attacksSequence();
 }
@@ -195,13 +191,19 @@ function attacksSequence(){
       const textContent = e.target.textContent
       switch(textContent){
         case "🔥":
-          attackFire()
+          playerAttacks.push('FIRE')
+          button.style.background='#112f58'
+          button.disabled=true
           break;
         case "💧":
-          attackWater()
+          playerAttacks.push('WATER')
+          button.style.background='#112f58'
+          button.disabled=true
         break;
         case "🌱":
-          attackEarth()
+          playerAttacks.push('EARTH')
+          button.style.background='#112f58'
+          button.disabled=true
         break;
       }
     })
@@ -213,23 +215,6 @@ function selectEnemyPet() {
   petNameEnemy.innerHTML = cobymons[numberPet].name;
 }
 
-function attackFire(){
-  playerAttack = "FIRE"
-  console.log(playerAttack)
-  randomSelectEnemyAttack()
-}
-
-function attackWater(){
-  playerAttack = "WATER"
-  console.log(playerAttack)
-  randomSelectEnemyAttack()
-}
-
-function attackEarth(){
-  playerAttack = "EARTH"
-  console.log(playerAttack)
-  randomSelectEnemyAttack()
-}
 
 function randomSelectEnemyAttack() {
   const attackNumber = randomNumber(1,3)
@@ -286,9 +271,9 @@ function checkLifes(){
 }
 
 function disableButton() {  
-  fireAttackButton.disabled=true  
-  waterAttackButton.disabled=true  
-  earthAttackButton.disabled=true
+//   fireAttackButton.disabled=true  
+//   waterAttackButton.disabled=true  
+//   earthAttackButton.disabled=true
 }
 
 function messageFinal(resultEnd){
