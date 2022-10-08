@@ -15,6 +15,7 @@ const cardsContainer = document.getElementById('cards-container')
 const attacksContainer = document.getElementById('div-attacks');
 
 const cobymons = []
+let buttons = [] 
 let cobymonsOptions
 let playerAttack 
 let enemyAttack
@@ -177,15 +178,34 @@ function showAttacks(attacks){
   attacksHtml = ''
   attacks.forEach((attack)=>{
     attacksHtml += `
-      <button id="${attack.id}" class="btn-attack">${attack.nombre}</button>`;            
+      <button id="${attack.id}" class="btn-attack btn-attack-code">${attack.nombre}</button>`;            
   })
   attacksContainer.innerHTML = attacksHtml;
   fireAttackButton = document.getElementById('button-fire')
   waterAttackButton = document.getElementById('button-water')
   earthAttackButton = document.getElementById('button-earth')
-  fireAttackButton.addEventListener('click', attackFire)
-  waterAttackButton.addEventListener('click', attackWater)
-  earthAttackButton.addEventListener('click', attackEarth)
+
+  buttons = document.querySelectorAll('.btn-attack-code')
+  attacksSequence();
+}
+
+function attacksSequence(){
+  buttons.forEach((button) => {
+    button.addEventListener('click', (e) => {
+      const textContent = e.target.textContent
+      switch(textContent){
+        case "🔥":
+          attackFire()
+          break;
+        case "💧":
+          attackWater()
+        break;
+        case "🌱":
+          attackEarth()
+        break;
+      }
+    })
+  })
 }
 
 function selectEnemyPet() {
