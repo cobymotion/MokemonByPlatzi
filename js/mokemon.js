@@ -5,7 +5,6 @@ const resetButton = document.getElementById('button-restart')
 const sectionPet = document.getElementById('select-pet')
 const petNamePlayer = document.getElementById('petNamePlayer')
 const petNameEnemy = document.getElementById('petNameEnemy')
-const msgResult = document.getElementById('msgResult')
 const msgPlayerAttack = document.getElementById('msgPlayerAttack')
 const msgEnemyAttack = document.getElementById('msgEnemyAttack')
 const spanPlayerLifes = document.getElementById('playerLifes')
@@ -20,8 +19,10 @@ let cobymonsOptions
 let playerAttack 
 let playerAttacks = []
 let enemyAttack
-let playerLifes = 3
-let enemyLifes = 3
+let enemyAttacks = []
+let enemyAttackNumber
+let playerVictories = 0
+let enemyVictories = 0
 let petPlayer
 let attacksHtml
 
@@ -158,9 +159,12 @@ function selectPlayerPet(){
       petPlayer = inputPydos.id
     } else {
       alert('You must select a pet ')
+      resetGame()
+      return;
     }  
-    extractAttacks(petPlayer); 
     selectEnemyPet()
+    extractAttacks(petPlayer); 
+    
 }
 
 function extractAttacks(petPlayer){
@@ -206,6 +210,7 @@ function attacksSequence(){
           button.disabled=true
         break;
       }
+      randomSelectEnemyAttack();
     })
   })
 }
@@ -213,79 +218,86 @@ function attacksSequence(){
 function selectEnemyPet() {
   const numberPet = randomNumber(0,cobymons.length -1)  
   petNameEnemy.innerHTML = cobymons[numberPet].name;
+  enemyAttackNumber = cobymons[numberPet].attacks;
 }
 
 
 function randomSelectEnemyAttack() {
-  const attackNumber = randomNumber(1,3)
-  if(attackNumber == 1){
-    enemyAttack = "FIRE"
-  } else if(attackNumber==2){
-    enemyAttack = "WATER"
+  const attackNumber = randomNumber(0,enemyAttackNumber.length-1)
+  if(attackNumber == 0 || attackNumber==1){
+    enemyAttacks.push("FIRE")
+  } else if(attackNumber==3 || attackNumber==4){
+    enemyAttacks.push("WATER")
   } else {
-    enemyAttack = "EARTH"
+    enemyAttacks.push("EARTH")
   }
-  updateMessages()
+  startCombat()
+}
+
+function startCombat(){
+  if(enemyAttacks.length==5 || playerAttacks.length==5){
+    combat()
+  }
 }
 
 function updateMessages(){
-  const result = combat()
-
+  
   const phrasePlayerAttack = document.createElement('p'); 
   const phraseEnemyAttack = document.createElement('p'); 
 
-  msgResult.innerHTML = result
   phrasePlayerAttack.innerHTML = playerAttack
   phraseEnemyAttack.innerHTML = enemyAttack
   
   msgPlayerAttack.appendChild(phrasePlayerAttack)
   msgEnemyAttack.appendChild(phraseEnemyAttack)
-  checkLifes()
+  spanPlayerLifes.innerHTML = playerVictories
+  spanEnemyLifes.innerHTML = enemyVictories 
 }
 
 function combat() {
-
-  if(playerAttack == enemyAttack){
-    return 'Draw 😬'; 
-  } else if((playerAttack=='FIRE' && enemyAttack=='EARTH')
-            || (playerAttack=='EARTH' && enemyAttack=='WATER')
-            || (playerAttack=='WATER' && enemyAttack=='FIRE')){
-              enemyLifes--; 
-              spanEnemyLifes.innerHTML = enemyLifes              
-              return 'Won 🎉'; 
-            }
-            else {
-              playerLifes--;
-              spanPlayerLifes.innerHTML = playerLifes 
-              return 'LOST 😵';
-            }
+  playerVictories = 0
+  enemyVictories = 0
+  for(let i=0;i<playerAttacks.length; i++){
+    playerAttack = playerAttacks[i]
+    enemyAttack = enemyAttacks[i]
+    console.log(playerAttack + " - " + enemyAttack)
+    if(playerAttack == enemyAttack){
+      console.log("Draw") 
+    } else if((playerAttack=='FIRE' && enemyAttack=='EARTH')
+              || (playerAttack=='EARTH' && enemyAttack=='WATER')
+              || (playerAttack=='WATER' && enemyAttack=='FIRE')){
+                playerVictories++   
+                console.log('Won 🎉')            
+              }
+              else {
+                enemyVictories++ 
+                console.log('LOST 😵')
+              }
+    updateMessages()
+  }
+  checkVictories()
 }
 
-function checkLifes(){
-  if(enemyLifes==0){
+function checkVictories(){
+  if(playerVictories>enemyVictories){
     messageFinal("Congratulation!! You won")    
-  } else if(playerLifes == 0)
+  } else if(playerVictories==enemyVictories)
   {
+    messageFinal("Draw, Luck for the next")
+  }
+  else {
     messageFinal("Auch!! You lost")
   }
 }
 
-function disableButton() {  
-//   fireAttackButton.disabled=true  
-//   waterAttackButton.disabled=true  
-//   earthAttackButton.disabled=true
-}
 
 function messageFinal(resultEnd){
-  messageSection.innerHTML = resultEnd  
-  disableButton();   
+  messageSection.innerHTML = resultEnd    
   sectionRestart.style.display = 'block' 
 }
 
 function resetGame(){
   location.reload()
 }
-
-
 
 window.addEventListener('load', startGame)
