@@ -12,6 +12,8 @@ const spanEnemyLifes = document.getElementById('enemyLifes')
 const messageSection = document.getElementById('msgResult')  
 const cardsContainer = document.getElementById('cards-container')  
 const attacksContainer = document.getElementById('div-attacks');
+const showMapSection = document.getElementById('show-map')
+const mapCanvas = document.getElementById('map')
 
 const cobymons = []
 let buttons = [] 
@@ -32,6 +34,8 @@ let inputCapipepo
 let inputLangostelvis 
 let inputTucalpma
 let inputPydos 
+
+let canvas2d = mapCanvas.getContext("2d")
 
 
 class Cobymon {
@@ -105,6 +109,7 @@ cobymons.push(hipoge, capipepo,ratigueya,langostelvis,tucalpma,pydos)
 function startGame() {    
   sectionAttack.style.display = 'none' 
   sectionRestart.style.display = 'none' 
+  showMapSection.style.display = 'none'
 
   cobymons.forEach((cobymon) => {
     cobymonsOptions = `
@@ -136,8 +141,13 @@ function randomNumber (min, max ){
 }
 
 function selectPlayerPet(){    
-    sectionAttack.style.display = 'flex'     
+    //sectionAttack.style.display = 'flex'     
+    showMapSection.style.display = 'flex'
     sectionPet.style.display = 'none'
+
+    let imagePet = new Image()
+    imagePet.src = capipepo.photo
+    canvas2d.drawImage(imagePet, 20,20,100,100)
 
     if(inputHipoge.checked){
       petNamePlayer.innerHTML=inputHipoge.id
