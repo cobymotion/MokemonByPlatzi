@@ -15,6 +15,9 @@ const attacksContainer = document.getElementById('div-attacks');
 const showMapSection = document.getElementById('show-map')
 const mapCanvas = document.getElementById('map')
 
+const mapBackground = new Image()
+mapBackground.src = '../assets/mokemap.png'
+
 const cobymons = []
 let buttons = [] 
 let cobymonsOptions
@@ -36,6 +39,8 @@ let inputTucalpma
 let inputPydos 
 
 let canvas2d = mapCanvas.getContext("2d")
+let interval 
+let petSelected
 
 
 class Cobymon {
@@ -45,6 +50,14 @@ class Cobymon {
     this.photo = photo
     this.life = life
     this.attacks = []
+    this.x = 20
+    this.y = 30 
+    this.width = 60
+    this.height = 60
+    this.mapImage = new Image()
+    this.mapImage.src = photo
+    this.speedX = 0
+    this.speedY = 0
   }
 
 }
@@ -134,7 +147,6 @@ function startGame() {
   resetButton.addEventListener('click', resetGame)    
 }
 
-//TODO: Add Attacks for each cobymon
 
 function randomNumber (min, max ){
   return Math.floor(Math.random() * (max - min + 1) + min ) 
@@ -145,33 +157,37 @@ function selectPlayerPet(){
     showMapSection.style.display = 'flex'
     sectionPet.style.display = 'none'
 
-    let imagePet = new Image()
-    imagePet.src = capipepo.photo
-    canvas2d.drawImage(imagePet, 20,20,100,100)
-
     if(inputHipoge.checked){
       petNamePlayer.innerHTML=inputHipoge.id
       petPlayer = inputHipoge.id
+      petSelected = hipoge
     } else if(inputRatigueya.checked){
       petNamePlayer.innerHTML = inputRatigueya.id
       petPlayer = inputRatigueya.id
+      petSelected = ratigueya
     } else if(inputCapipepo.checked){
       petNamePlayer.innerHTML=inputCapipepo.id
       petPlayer = inputCapipepo.id
+      petSelected = capipepo
     } else if(inputLangostelvis.checked){
       petNamePlayer.innerHTML=inputLangostelvis.id
       petPlayer = inputLangostelvis.id
+      petSelected = langostelvis
     } else if(inputTucalpma.checked){
       petNamePlayer.innerHTML = inputTucalpma.id
       petPlayer = inputTucalpma.id
+      petSelected = tucalpma
     } else if(inputPydos.checked){
       petNamePlayer.innerHTML = inputPydos.id
       petPlayer = inputPydos.id
+      petSelected = pydos
     } else {
       alert('You must select a pet ')
       resetGame()
       return;
     }  
+    startMap()
+
     selectEnemyPet()
     extractAttacks(petPlayer); 
     
@@ -308,6 +324,69 @@ function messageFinal(resultEnd){
 
 function resetGame(){
   location.reload()
+}
+
+function drawMap(){
+  petSelected.x = petSelected.x + petSelected.speedX
+  petSelected.y = petSelected.y + petSelected.speedY
+  canvas2d.clearRect(0,0,map.width, map.height)
+  canvas2d.drawImage(mapBackground, 0,0, map.width, map.height)
+  canvas2d.drawImage(petSelected.mapImage, petSelected.x,petSelected.y,petSelected.width,petSelected.height)
+}
+
+function movePetRight(){
+  petSelected.speedX = 5
+} 
+
+function movePetLeft(){
+  petSelected.speedX = -5
+}
+
+function movePetUp(){
+  petSelected.speedY = -5
+}
+
+function movePetDown(){
+  petSelected.speedY = 5
+}
+
+function stopped(){
+  petSelected.speedX = 0
+  petSelected.speedY = 0
+}
+
+function pressedKey(event){
+  switch(event.key){
+    case 'a':
+    case 'A':
+    case 'ArrowLeft':
+      movePetLeft();
+      break;
+    case 'w':
+    case 'W':
+    case 'ArrowUp':
+      movePetUp();
+      break;
+    case 's':
+    case 'S':
+    case 'ArrowDown':
+      movePetDown();
+      break;
+    case 'd':
+    case 'D':
+    case 'ArrowRight':
+      movePetRight();
+      break;
+  }
+}
+
+function startMap(){
+    
+    map.width = 700
+    map.height = 460
+  intervalo = setInterval(drawMap, 50)
+  window.addEventListener('keydown', pressedKey)
+  window.addEventListener('keyup', stopped)
 }
 
 window.addEventListener('load', startGame)
