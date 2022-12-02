@@ -42,32 +42,57 @@ let canvas2d = mapCanvas.getContext("2d")
 let interval 
 let petSelected
 
+let widthMap = window.innerWidth - 20 
+
+if(widthMap>800){
+    widthMap = 680;
+}
+
+let heightMap = widthMap * 600 / 900
+
+map.width = widthMap
+map.height = heightMap
+
 
 class Cobymon {
 
-  constructor(name, photo, life){
+  constructor(name, photo, life, photomap){
     this.name = name
     this.photo = photo
     this.life = life
     this.attacks = []
-    this.x = 20
-    this.y = 30 
-    this.width = 60
-    this.height = 60
+    this.width = 40
+    this.height = 40
+    this.x = randomNumber(0,widthMap - this.width)
+    this.y = randomNumber(0,heightMap - this.height)
     this.mapImage = new Image()
-    this.mapImage.src = photo
+    this.mapImage.src = photomap
     this.speedX = 0
     this.speedY = 0
   }
 
+  drawMokemon() {
+    canvas2d.drawImage(this.mapImage, this.x,this.y,this.width,this.height)
+  }
+  
+
 }
 
-const hipoge = new Cobymon('Hipoge','/assets/poke1.png',5)
-const capipepo = new Cobymon('Capipepo','/assets/poke2.png',5)
-const ratigueya = new Cobymon('Ratigueya','/assets/poke3.png',5)
-const langostelvis = new Cobymon('Langostelvis','/assets/poke4.png',5)
-const tucalpma = new Cobymon('Tucalpma','/assets/poke5.png',5)
-const pydos = new Cobymon('Pydos','/assets/poke6.png',5)
+const hipoge = new Cobymon('Hipoge','/assets/poke1.png',5, '/assets/poke1.png')
+const capipepo = new Cobymon('Capipepo','/assets/poke2.png',5,'/assets/poke2.png')
+const ratigueya = new Cobymon('Ratigueya','/assets/poke3.png',5,'/assets/poke3.png')
+const langostelvis = new Cobymon('Langostelvis','/assets/poke4.png',5,'/assets/poke4.png')
+const tucalpma = new Cobymon('Tucalpma','/assets/poke5.png',5,'/assets/poke5.png')
+const pydos = new Cobymon('Pydos','/assets/poke6.png',5,'/assets/poke6.png')
+
+// Enemies
+const hipogeEnemy = new Cobymon('Hipoge','/assets/poke1.png',5, '/assets/poke1.png')
+const capipepoEnemy = new Cobymon('Capipepo','/assets/poke2.png',5,'/assets/poke2.png')
+const ratigueyaEnemy = new Cobymon('Ratigueya','/assets/poke3.png',5,'/assets/poke3.png')
+const langostelvisEnemy = new Cobymon('Langostelvis','/assets/poke4.png',5,'/assets/poke4.png')
+const tucalpmaEnemy = new Cobymon('Tucalpma','/assets/poke5.png',5,'/assets/poke5.png')
+const pydosEnemy = new Cobymon('Pydos','/assets/poke6.png',5,'/assets/poke6.png')
+
 
 hipoge.attacks.push(
   {nombre:'🌱', id:'button-earth'},
@@ -117,6 +142,56 @@ pydos.attacks.push(
   {nombre:'🔥', id:'button-fire'}
 )
 
+// Enemy attacks 
+
+hipogeEnemy.attacks.push(
+    {nombre:'🌱', id:'button-earth'},
+    {nombre:'🌱', id:'button-earth'},
+    {nombre:'🌱', id:'button-earth'},
+    {nombre:'💧', id:'button-water'},
+    {nombre:'🔥', id:'button-fire'}
+  )
+  
+  capipepoEnemy.attacks.push(
+    {nombre:'🌱', id:'button-earth'},
+    {nombre:'🌱', id:'button-earth'},
+    {nombre:'🌱', id:'button-earth'},
+    {nombre:'💧', id:'button-water'},
+    {nombre:'🔥', id:'button-fire'}
+  )
+  
+  ratigueyaEnemy.attacks.push(
+    {nombre:'🌱', id:'button-earth'},
+    {nombre:'🌱', id:'button-earth'},
+    {nombre:'🌱', id:'button-earth'},
+    {nombre:'💧', id:'button-water'},
+    {nombre:'🔥', id:'button-fire'}
+  )
+  
+  langostelvisEnemy.attacks.push(
+    {nombre:'🌱', id:'button-earth'},
+    {nombre:'🌱', id:'button-earth'},
+    {nombre:'🌱', id:'button-earth'},
+    {nombre:'💧', id:'button-water'},
+    {nombre:'🔥', id:'button-fire'}
+  )
+  
+  tucalpma.attacks.push(
+    {nombre:'🌱', id:'button-earth'},
+    {nombre:'🌱', id:'button-earth'},
+    {nombre:'🌱', id:'button-earth'},
+    {nombre:'💧', id:'button-water'},
+    {nombre:'🔥', id:'button-fire'}
+  )
+  
+  pydos.attacks.push(
+    {nombre:'🌱', id:'button-earth'},
+    {nombre:'🌱', id:'button-earth'},
+    {nombre:'🌱', id:'button-earth'},
+    {nombre:'💧', id:'button-water'},
+    {nombre:'🔥', id:'button-fire'}
+  )
+
 cobymons.push(hipoge, capipepo,ratigueya,langostelvis,tucalpma,pydos)
 
 function startGame() {    
@@ -153,7 +228,7 @@ function randomNumber (min, max ){
 }
 
 function selectPlayerPet(){    
-    //sectionAttack.style.display = 'flex'     
+        
     showMapSection.style.display = 'flex'
     sectionPet.style.display = 'none'
 
@@ -187,8 +262,6 @@ function selectPlayerPet(){
       return;
     }  
     startMap()
-
-    selectEnemyPet()
     extractAttacks(petPlayer); 
     
 }
@@ -241,10 +314,9 @@ function attacksSequence(){
   })
 }
 
-function selectEnemyPet() {
-  const numberPet = randomNumber(0,cobymons.length -1)  
-  petNameEnemy.innerHTML = cobymons[numberPet].name;
-  enemyAttackNumber = cobymons[numberPet].attacks;
+function selectEnemyPet(enemy) {
+  petNameEnemy.innerHTML = enemy.name;
+  enemyAttackNumber = enemy.attacks;
 }
 
 
@@ -327,11 +399,27 @@ function resetGame(){
 }
 
 function drawMap(){
-  petSelected.x = petSelected.x + petSelected.speedX
-  petSelected.y = petSelected.y + petSelected.speedY
-  canvas2d.clearRect(0,0,map.width, map.height)
-  canvas2d.drawImage(mapBackground, 0,0, map.width, map.height)
-  canvas2d.drawImage(petSelected.mapImage, petSelected.x,petSelected.y,petSelected.width,petSelected.height)
+    petSelected.x = petSelected.x + petSelected.speedX
+    petSelected.y = petSelected.y + petSelected.speedY
+    canvas2d.clearRect(0,0,map.width, map.height)
+    canvas2d.drawImage(mapBackground, 0,0, map.width, map.height)
+    petSelected.drawMokemon()
+    // draw enemies 
+    hipogeEnemy.drawMokemon()
+    capipepoEnemy.drawMokemon()
+    ratigueyaEnemy.drawMokemon()
+    langostelvisEnemy.drawMokemon() 
+    tucalpmaEnemy.drawMokemon()
+    pydosEnemy.drawMokemon()
+
+    if(petSelected.speedX != 0 || petSelected.speedY!=0){
+        checkCollision(hipogeEnemy)
+        checkCollision(capipepoEnemy)
+        checkCollision(ratigueyaEnemy)
+        checkCollision(langostelvisEnemy)
+        checkCollision(tucalpmaEnemy)
+        checkCollision(pydosEnemy)
+    }
 }
 
 function movePetRight(){
@@ -382,11 +470,32 @@ function pressedKey(event){
 
 function startMap(){
     
-    map.width = 700
-    map.height = 460
-  intervalo = setInterval(drawMap, 50)
-  window.addEventListener('keydown', pressedKey)
-  window.addEventListener('keyup', stopped)
+    
+    interval = setInterval(drawMap, 50)
+    window.addEventListener('keydown', pressedKey)
+    window.addEventListener('keyup', stopped)
+}
+
+function checkCollision(enemy){
+    const upEnemy = enemy.y
+    const downEnemy = enemy.y + enemy.height
+    const leftEnemy = enemy.x 
+    const rightEnemy = enemy.x + enemy.width
+    /// 
+    const upPet = petSelected.y
+    const downPet = petSelected + petSelected.height
+    const leftPet = petSelected.x 
+    const rightPet = petSelected.x + petSelected.width
+
+    if(downPet < upEnemy || upPet > downEnemy || rightPet < leftEnemy || leftPet > rightEnemy){
+        return;
+    }else {
+        stopped();
+        clearInterval(interval);
+        showMapSection.style.display = 'none'
+        sectionAttack.style.display = 'flex' 
+        selectEnemyPet(enemy)
+    }
 }
 
 window.addEventListener('load', startGame)

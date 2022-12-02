@@ -115,9 +115,6 @@ input:checked + label {
     justify-content: center;
 }
 
-#map{
-    border: 2px solid green;
-}
 
 @media(max-width:360px){
     .cards, .attacks-cards {
