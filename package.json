@@ -1,0 +1,22 @@
+{
+  "name": "mokemonbyplatzi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cobymotion/MokemonByPlatzi.git"
+  },
+  "author": "luis cobian by platzi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cobymotion/MokemonByPlatzi/issues"
+  },
+  "homepage": "https://github.com/cobymotion/MokemonByPlatzi#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

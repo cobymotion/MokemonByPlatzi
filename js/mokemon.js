@@ -219,9 +219,23 @@ function startGame() {
   inputPydos = document.getElementById('Pydos')  
 
   playersPetButton.addEventListener('click', selectPlayerPet)
-  resetButton.addEventListener('click', resetGame)    
+  resetButton.addEventListener('click', resetGame)  
+  
+  joinToGame();
 }
 
+function joinToGame(){
+    fetch('http://localhost:8080/join')
+        .then(function (res) {
+            console.log(res);
+            if(res.ok){
+                res.text()
+                .then(function(data){
+                    console.log(data)
+                })
+            }
+        })
+}
 
 function randomNumber (min, max ){
   return Math.floor(Math.random() * (max - min + 1) + min ) 
