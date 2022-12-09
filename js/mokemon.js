@@ -19,6 +19,7 @@ const mapBackground = new Image()
 mapBackground.src = '../assets/mokemap.png'
 
 const cobymons = []
+let playerId = null 
 let buttons = [] 
 let cobymonsOptions
 let playerAttack 
@@ -232,6 +233,7 @@ function joinToGame(){
                 res.text()
                 .then(function(data){
                     console.log(data)
+                    playerId = data
                 })
             }
         })
@@ -275,10 +277,23 @@ function selectPlayerPet(){
       resetGame()
       return;
     }  
+
+    sendSelectedPet(petSelected)
+
     startMap()
     extractAttacks(petPlayer); 
     
 }
+
+function sendSelectedPet(petSelected){
+  fetch(`http://localhost:8080/mokemon/${playerId}`,{
+    method:'post',
+    headers:{'Content-type':'application/json'},
+    body: JSON.stringify(petSelected)
+  } 
+  )
+}
+
 
 function extractAttacks(petPlayer){
   let attacks; 
