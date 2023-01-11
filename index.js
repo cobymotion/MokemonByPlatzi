@@ -15,6 +15,11 @@ class Player{
     setMokepon(mokemon){
         this.mokemon = mokemon
     }
+
+    updatePosition(x,y){ 
+        this.x = x
+        this.y = y
+    }
 }
 
 class Mokepon{
@@ -45,6 +50,19 @@ app.post('/mokemon/:playerId', (req,res) => {
     console.log(players)
     res.end()
 } )
+
+app.post('/mokemon/:playerId/:positions', (req,res) => {
+    const playerId = req.params.playerId || ''
+    const x = req.body.x || 0
+    const y = req.body.y || 0
+    const playerIndex = players.findIndex((player) => player.id === playerId)
+    if(playerIndex>=0){
+        players[playerIndex].updatePosition(x,y)
+    } else {
+        console.log('No existe el usaurio')
+    }
+    res.end()
+});
 
 app.listen(8080, () => {
     console.log('started server')

@@ -433,6 +433,7 @@ function drawMap(){
     canvas2d.clearRect(0,0,map.width, map.height)
     canvas2d.drawImage(mapBackground, 0,0, map.width, map.height)
     petSelected.drawMokemon()
+    sendPosition(petSelected.x,petSelected.y)
     // draw enemies 
     hipogeEnemy.drawMokemon()
     capipepoEnemy.drawMokemon()
@@ -449,6 +450,18 @@ function drawMap(){
         checkCollision(tucalpmaEnemy)
         checkCollision(pydosEnemy)
     }
+}
+
+function sendPosition(x,y){
+  fetch(`http://localhost:8080/mokemon/${playerId}/position`,{
+    method:'post',
+    headers:{'Content-type':'application/json'},
+    body: JSON.stringify({
+      x,
+      y
+    })
+  } 
+  )
 }
 
 function movePetRight(){
