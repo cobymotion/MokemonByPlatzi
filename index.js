@@ -32,6 +32,7 @@ class Mokepon{
 app.get('/join',(req,res)=>{
     const id = `${Math.random()}`
     const player = new Player(id)
+    player.updatePosition(1,1)
     players.push(player)
     res.setHeader('Access-Control-Allow-Origin', '*')
     res.send(id)
@@ -46,8 +47,7 @@ app.post('/mokemon/:playerId', (req,res) => {
         players[playerIndex].setMokepon(mokemon)
     } else {
         console.log('No existe el usaurio')
-    }
-    console.log(players)
+    }    
     res.end()
 } )
 
@@ -61,7 +61,12 @@ app.post('/mokemon/:playerId/:positions', (req,res) => {
     } else {
         console.log('No existe el usaurio')
     }
-    res.end()
+
+    const enemys = players.filter((player) => player.id !== playerId)   
+    console.log("-----------------------------------------------")
+    console.log(enemys)
+    res.send({enemys})
+
 });
 
 app.listen(8080, () => {

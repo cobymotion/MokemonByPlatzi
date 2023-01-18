@@ -57,7 +57,8 @@ map.height = heightMap
 
 class Cobymon {
 
-  constructor(name, photo, life, photomap){
+  constructor(name, photo, life, photomap, id=null){
+    this.id = id
     this.name = name
     this.photo = photo
     this.life = life
@@ -86,114 +87,67 @@ const langostelvis = new Cobymon('Langostelvis','/assets/poke4.png',5,'/assets/p
 const tucalpma = new Cobymon('Tucalpma','/assets/poke5.png',5,'/assets/poke5.png')
 const pydos = new Cobymon('Pydos','/assets/poke6.png',5,'/assets/poke6.png')
 
-// Enemies
-const hipogeEnemy = new Cobymon('Hipoge','/assets/poke1.png',5, '/assets/poke1.png')
-const capipepoEnemy = new Cobymon('Capipepo','/assets/poke2.png',5,'/assets/poke2.png')
-const ratigueyaEnemy = new Cobymon('Ratigueya','/assets/poke3.png',5,'/assets/poke3.png')
-const langostelvisEnemy = new Cobymon('Langostelvis','/assets/poke4.png',5,'/assets/poke4.png')
-const tucalpmaEnemy = new Cobymon('Tucalpma','/assets/poke5.png',5,'/assets/poke5.png')
-const pydosEnemy = new Cobymon('Pydos','/assets/poke6.png',5,'/assets/poke6.png')
+// attacks 
 
-
-hipoge.attacks.push(
+const ATTACK_HIPOGE = [
   {nombre:'🌱', id:'button-earth'},
   {nombre:'🌱', id:'button-earth'},
   {nombre:'🌱', id:'button-earth'},
   {nombre:'💧', id:'button-water'},
   {nombre:'🔥', id:'button-fire'}
-)
+]
 
-capipepo.attacks.push(
+const ATTACK_CAPIPEPO = [
   {nombre:'🌱', id:'button-earth'},
   {nombre:'🌱', id:'button-earth'},
   {nombre:'🌱', id:'button-earth'},
   {nombre:'💧', id:'button-water'},
   {nombre:'🔥', id:'button-fire'}
-)
+]
 
-ratigueya.attacks.push(
+const ATTACK_RATIGUEYA = [
   {nombre:'🌱', id:'button-earth'},
   {nombre:'🌱', id:'button-earth'},
   {nombre:'🌱', id:'button-earth'},
   {nombre:'💧', id:'button-water'},
   {nombre:'🔥', id:'button-fire'}
-)
+]
 
-langostelvis.attacks.push(
+const ATTACK_LANGOSTELVIS = [
   {nombre:'🌱', id:'button-earth'},
   {nombre:'🌱', id:'button-earth'},
   {nombre:'🌱', id:'button-earth'},
   {nombre:'💧', id:'button-water'},
   {nombre:'🔥', id:'button-fire'}
-)
+]
 
-tucalpma.attacks.push(
+const ATTACK_TUCALPMA = [
   {nombre:'🌱', id:'button-earth'},
   {nombre:'🌱', id:'button-earth'},
   {nombre:'🌱', id:'button-earth'},
   {nombre:'💧', id:'button-water'},
   {nombre:'🔥', id:'button-fire'}
-)
+]
 
-pydos.attacks.push(
+const ATTACK_PYDOS = [
   {nombre:'🌱', id:'button-earth'},
   {nombre:'🌱', id:'button-earth'},
   {nombre:'🌱', id:'button-earth'},
   {nombre:'💧', id:'button-water'},
   {nombre:'🔥', id:'button-fire'}
-)
+]
 
-// Enemy attacks 
-
-hipogeEnemy.attacks.push(
-    {nombre:'🌱', id:'button-earth'},
-    {nombre:'🌱', id:'button-earth'},
-    {nombre:'🌱', id:'button-earth'},
-    {nombre:'💧', id:'button-water'},
-    {nombre:'🔥', id:'button-fire'}
-  )
-  
-  capipepoEnemy.attacks.push(
-    {nombre:'🌱', id:'button-earth'},
-    {nombre:'🌱', id:'button-earth'},
-    {nombre:'🌱', id:'button-earth'},
-    {nombre:'💧', id:'button-water'},
-    {nombre:'🔥', id:'button-fire'}
-  )
-  
-  ratigueyaEnemy.attacks.push(
-    {nombre:'🌱', id:'button-earth'},
-    {nombre:'🌱', id:'button-earth'},
-    {nombre:'🌱', id:'button-earth'},
-    {nombre:'💧', id:'button-water'},
-    {nombre:'🔥', id:'button-fire'}
-  )
-  
-  langostelvisEnemy.attacks.push(
-    {nombre:'🌱', id:'button-earth'},
-    {nombre:'🌱', id:'button-earth'},
-    {nombre:'🌱', id:'button-earth'},
-    {nombre:'💧', id:'button-water'},
-    {nombre:'🔥', id:'button-fire'}
-  )
-  
-  tucalpma.attacks.push(
-    {nombre:'🌱', id:'button-earth'},
-    {nombre:'🌱', id:'button-earth'},
-    {nombre:'🌱', id:'button-earth'},
-    {nombre:'💧', id:'button-water'},
-    {nombre:'🔥', id:'button-fire'}
-  )
-  
-  pydos.attacks.push(
-    {nombre:'🌱', id:'button-earth'},
-    {nombre:'🌱', id:'button-earth'},
-    {nombre:'🌱', id:'button-earth'},
-    {nombre:'💧', id:'button-water'},
-    {nombre:'🔥', id:'button-fire'}
-  )
+hipoge.attacks.push(...ATTACK_HIPOGE)
+capipepo.attacks.push(...ATTACK_CAPIPEPO)
+ratigueya.attacks.push(...ATTACK_RATIGUEYA)
+langostelvis.attacks.push(...ATTACK_LANGOSTELVIS)
+tucalpma.attacks.push(...ATTACK_TUCALPMA)
+pydos.attacks.push(...ATTACK_PYDOS)
 
 cobymons.push(hipoge, capipepo,ratigueya,langostelvis,tucalpma,pydos)
+
+// Enemies
+
 
 function startGame() {    
   sectionAttack.style.display = 'none' 
@@ -434,21 +388,15 @@ function drawMap(){
     canvas2d.drawImage(mapBackground, 0,0, map.width, map.height)
     petSelected.drawMokemon()
     sendPosition(petSelected.x,petSelected.y)
-    // draw enemies 
-    hipogeEnemy.drawMokemon()
-    capipepoEnemy.drawMokemon()
-    ratigueyaEnemy.drawMokemon()
-    langostelvisEnemy.drawMokemon() 
-    tucalpmaEnemy.drawMokemon()
-    pydosEnemy.drawMokemon()
+    
 
     if(petSelected.speedX != 0 || petSelected.speedY!=0){
-        checkCollision(hipogeEnemy)
-        checkCollision(capipepoEnemy)
-        checkCollision(ratigueyaEnemy)
-        checkCollision(langostelvisEnemy)
-        checkCollision(tucalpmaEnemy)
-        checkCollision(pydosEnemy)
+        //checkCollision(hipogeEnemy)
+        //checkCollision(capipepoEnemy)
+        //checkCollision(ratigueyaEnemy)
+        //checkCollision(langostelvisEnemy)
+        //checkCollision(tucalpmaEnemy)
+        //checkCollision(pydosEnemy)
     }
 }
 
@@ -461,7 +409,39 @@ function sendPosition(x,y){
       y
     })
   } 
-  )
+  ).then(function(res){
+    if(res.ok){
+       res.json()
+       .then(function({enemys}){          
+          enemys.forEach(function(enemy){            
+            const mokemonName = enemy.mokemon.nombre || "";
+            let mokemonEnemy=null
+            console.log(mokemonName)
+            if(mokemonName==="Hipoge"){
+                mokemonEnemy = new Cobymon('Hipoge','/assets/poke1.png',5, '/assets/poke1.png')
+            } else if(mokemonName==="Capipepo"){
+                mokemonEnemy = new Cobymon('Capipepo','/assets/poke2.png',5,'/assets/poke2.png')
+            } else if(mokemonName==="Ratigueya"){
+                mokemonEnemy=new Cobymon('Ratigueya','/assets/poke3.png',5,'/assets/poke3.png')
+            } else if(mokemonName==="Langostelvis"){
+                mokemonEnemy=new Cobymon('Langostelvis','/assets/poke4.png',5,'/assets/poke4.png')
+            } else if(mokemonName==="Tucalpma"){
+                mokemonEnemy=new Cobymon('Tucalpma','/assets/poke5.png',5,'/assets/poke5.png')
+            } else if(mokemonName==="Pydos"){
+                mokemonEnemy=new Cobymon('Pydos','/assets/poke6.png',5,'/assets/poke6.png')
+            }
+            console.log(mokemonEnemy)
+            if(mokemonEnemy!=null){
+                console.log("pinto")
+                mokemonEnemy.x = enemy.x;
+                mokemonEnemy.y = enemy.y;
+                mokemonEnemy.drawMokemon()            
+            }
+          })
+       })
+    }
+  })
+
 }
 
 function movePetRight(){
