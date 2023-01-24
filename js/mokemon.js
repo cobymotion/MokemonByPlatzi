@@ -19,6 +19,7 @@ const mapBackground = new Image()
 mapBackground.src = '../assets/mokemap.png'
 
 const cobymons = []
+let cobyEnemymons = []
 let playerId = null 
 let buttons = [] 
 let cobymonsOptions
@@ -388,7 +389,13 @@ function drawMap(){
     canvas2d.drawImage(mapBackground, 0,0, map.width, map.height)
     petSelected.drawMokemon()
     sendPosition(petSelected.x,petSelected.y)
-    
+    console.log("----------------------------")
+    console.log(cobyEnemymons)
+    console.log("----------------------------")
+    cobyEnemymons.forEach(function (mokeponItem){
+      if(mokeponItem)
+        mokeponItem.drawMokemon()      
+    })
 
     if(petSelected.speedX != 0 || petSelected.speedY!=0){
         //checkCollision(hipogeEnemy)
@@ -413,8 +420,8 @@ function sendPosition(x,y){
     if(res.ok){
        res.json()
        .then(function({enemys}){          
-          enemys.forEach(function(enemy){            
-            const mokemonName = enemy.mokemon.nombre || "";
+            cobyEnemymons =  enemys.map(function(enemy){                      
+            let mokemonName = enemy.mokemon?.nombre ?? "";
             let mokemonEnemy=null
             console.log(mokemonName)
             if(mokemonName==="Hipoge"){
@@ -435,8 +442,8 @@ function sendPosition(x,y){
                 console.log("pinto")
                 mokemonEnemy.x = enemy.x;
                 mokemonEnemy.y = enemy.y;
-                mokemonEnemy.drawMokemon()            
-            }
+                return mokemonEnemy            
+            }          
           })
        })
     }
