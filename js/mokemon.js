@@ -21,6 +21,7 @@ mapBackground.src = '../assets/mokemap.png'
 const cobymons = []
 let cobyEnemymons = []
 let playerId = null 
+let enemyId = null
 let buttons = [] 
 let cobymonsOptions
 let playerAttack 
@@ -293,9 +294,24 @@ function attacksSequence(){
           button.disabled=true
         break;
       }
-      randomSelectEnemyAttack();
+      if(playerAttacks.length==5){
+        sendAttacks();
+      }
+      
     })
   })
+}
+
+function sendAttacks() {
+    fetch(`http://localhost:8080/mokemon/${playerId}/attacks`,{
+		method:"post",
+		headers: {
+			"Content-type": "application/json"
+		},
+		body: JSON.stringify({
+			attacks: playerAttacks
+		})
+	});
 }
 
 function selectEnemyPet(enemy) {
@@ -303,7 +319,7 @@ function selectEnemyPet(enemy) {
   enemyAttackNumber = enemy.attacks;
 }
 
-
+// obsolete 
 function randomSelectEnemyAttack() {
   const attackNumber = randomNumber(0,enemyAttackNumber.length-1)
   if(attackNumber == 0 || attackNumber==1){
@@ -393,18 +409,11 @@ function drawMap(){
     console.log(cobyEnemymons)
     console.log("----------------------------")
     cobyEnemymons.forEach(function (mokeponItem){
-      if(mokeponItem)
+      if(mokeponItem){
         mokeponItem.drawMokemon()      
-    })
-
-    if(petSelected.speedX != 0 || petSelected.speedY!=0){
-        //checkCollision(hipogeEnemy)
-        //checkCollision(capipepoEnemy)
-        //checkCollision(ratigueyaEnemy)
-        //checkCollision(langostelvisEnemy)
-        //checkCollision(tucalpmaEnemy)
-        //checkCollision(pydosEnemy)
-    }
+        checkCollision(mokeponItem)
+      }
+    })    
 }
 
 function sendPosition(x,y){
@@ -425,17 +434,17 @@ function sendPosition(x,y){
             let mokemonEnemy=null
             console.log(mokemonName)
             if(mokemonName==="Hipoge"){
-                mokemonEnemy = new Cobymon('Hipoge','/assets/poke1.png',5, '/assets/poke1.png')
+                mokemonEnemy = new Cobymon('Hipoge','/assets/poke1.png',5, '/assets/poke1.png', enemy.id)
             } else if(mokemonName==="Capipepo"){
-                mokemonEnemy = new Cobymon('Capipepo','/assets/poke2.png',5,'/assets/poke2.png')
+                mokemonEnemy = new Cobymon('Capipepo','/assets/poke2.png',5,'/assets/poke2.png', enemy.id)
             } else if(mokemonName==="Ratigueya"){
-                mokemonEnemy=new Cobymon('Ratigueya','/assets/poke3.png',5,'/assets/poke3.png')
+                mokemonEnemy=new Cobymon('Ratigueya','/assets/poke3.png',5,'/assets/poke3.png', enemy.id)
             } else if(mokemonName==="Langostelvis"){
-                mokemonEnemy=new Cobymon('Langostelvis','/assets/poke4.png',5,'/assets/poke4.png')
+                mokemonEnemy=new Cobymon('Langostelvis','/assets/poke4.png',5,'/assets/poke4.png', enemy.id)
             } else if(mokemonName==="Tucalpma"){
-                mokemonEnemy=new Cobymon('Tucalpma','/assets/poke5.png',5,'/assets/poke5.png')
+                mokemonEnemy=new Cobymon('Tucalpma','/assets/poke5.png',5,'/assets/poke5.png', enemy.id)
             } else if(mokemonName==="Pydos"){
-                mokemonEnemy=new Cobymon('Pydos','/assets/poke6.png',5,'/assets/poke6.png')
+                mokemonEnemy=new Cobymon('Pydos','/assets/poke6.png',5,'/assets/poke6.png', enemy.id)
             }
             console.log(mokemonEnemy)
             if(mokemonEnemy!=null){
@@ -521,6 +530,7 @@ function checkCollision(enemy){
     }else {
         stopped();
         clearInterval(interval);
+		enemyId = enemy.id
         showMapSection.style.display = 'none'
         sectionAttack.style.display = 'flex' 
         selectEnemyPet(enemy)
