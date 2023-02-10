@@ -1,5 +1,6 @@
 const express = require('express')
-const cors = require('cors')
+const cors = require('cors');
+const { response } = require('express');
 
 const app = express()
 app.use(cors());
@@ -49,12 +50,12 @@ app.post('/mokemon/:playerId', (req,res) => {
     if(playerIndex>=0){
         players[playerIndex].setMokepon(mokemon)
     } else {
-        console.log('No existe el usaurio')
+        console.log('No existe el usaurio1')
     }    
     res.end()
 } )
 
-app.post('/mokemon/:playerId/:positions', (req,res) => {
+app.post('/mokemon/:playerId/positions', (req,res) => {
     const playerId = req.params.playerId || ''
     const x = req.body.x || 0
     const y = req.body.y || 0
@@ -62,7 +63,7 @@ app.post('/mokemon/:playerId/:positions', (req,res) => {
     if(playerIndex>=0){
         players[playerIndex].updatePosition(x,y)
     } else {
-        console.log('No existe el usaurio')
+        console.log('No existe el usaurio2')
     }
 
     const enemys = players.filter((player) => player.id !== playerId)   
@@ -72,18 +73,30 @@ app.post('/mokemon/:playerId/:positions', (req,res) => {
 
 });
 
-app.post('/mokemon/:playerId/attacks', (req,res) => {
+app.post('/mokemon/:playerId/attacks', (req,res) => {    
     const playerId = req.params.playerId || ''
     const attacks = req.body.attacks || []
     const playerIndex = players.findIndex((player) => player.id === playerId)
-    
+    console.log('88888888888888888888888888888888888888888888888888888888888888888888888888888888')
+    console.log(players[playerIndex])
     if(playerIndex>=0){
         players[playerIndex].setAttacks(attacks)
     } else {
-        console.log('No existe el usaurio')
+        console.log('No existe el usaurio3')
     }    
     res.end()
-} )
+
+});
+
+
+app.get('/mokemon/:playerId/attacks',(req,res)=>{
+    const playerId = req.params.playerId || ''
+    const player = players.find((player) => player.id === playerId);     
+    res.send({
+        attacks:player.attacks || []
+    })
+});
+
 
 app.listen(8080, () => {
     console.log('started server')

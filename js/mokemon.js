@@ -303,33 +303,34 @@ function attacksSequence(){
 }
 
 function sendAttacks() {
+    console.log("Envio de ataques                                     -----------------------------------------")
+    console.log(playerAttacks)
     fetch(`http://localhost:8080/mokemon/${playerId}/attacks`,{
-		method:"post",
-		headers: {
-			"Content-type": "application/json"
-		},
-		body: JSON.stringify({
-			attacks: playerAttacks
-		})
+      method:'post',
+      headers:{'Content-type':'application/json'},
+      body:JSON.stringify({attacks: playerAttacks})		
 	});
+
+  interval = setInterval(getAttacksEnemy, 50);
+}
+
+function getAttacksEnemy(){
+  fetch(`http://localhost:8080/mokemon/${enemyId}/attacks`)
+  .then(function (res) {
+    if(res.ok){
+      res.json().then(function({attacks}){
+          if(attacks.length==5){ 
+            enemyAttacks = attacks
+            combat();
+          }
+      })
+    }
+  })
 }
 
 function selectEnemyPet(enemy) {
   petNameEnemy.innerHTML = enemy.name;
   enemyAttackNumber = enemy.attacks;
-}
-
-// obsolete 
-function randomSelectEnemyAttack() {
-  const attackNumber = randomNumber(0,enemyAttackNumber.length-1)
-  if(attackNumber == 0 || attackNumber==1){
-    enemyAttacks.push("FIRE")
-  } else if(attackNumber==3 || attackNumber==4){
-    enemyAttacks.push("WATER")
-  } else {
-    enemyAttacks.push("EARTH")
-  }
-  startCombat()
 }
 
 function startCombat(){
@@ -353,6 +354,7 @@ function updateMessages(){
 }
 
 function combat() {
+  clearInterval(interval);
   playerVictories = 0
   enemyVictories = 0
   for(let i=0;i<playerAttacks.length; i++){
@@ -417,7 +419,7 @@ function drawMap(){
 }
 
 function sendPosition(x,y){
-  fetch(`http://localhost:8080/mokemon/${playerId}/position`,{
+  fetch(`http://localhost:8080/mokemon/${playerId}/positions`,{
     method:'post',
     headers:{'Content-type':'application/json'},
     body: JSON.stringify({
@@ -530,7 +532,7 @@ function checkCollision(enemy){
     }else {
         stopped();
         clearInterval(interval);
-		enemyId = enemy.id
+		    enemyId = enemy.id
         showMapSection.style.display = 'none'
         sectionAttack.style.display = 'flex' 
         selectEnemyPet(enemy)
